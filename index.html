@@ -1,224 +1,243 @@
 <html>
-    <head>
-		<title>Volcano Shuttles</title>
-        <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
-        <link href="bootstrap.min.css" type="text/css"  rel="stylesheet"></link>
-		<meta charset="UTF-8">
-        <style>
-            .shuttle {
-                border:0px;
-                border-radius: 0%;
-                margin-top:5px;
-                margin-bottom:5px;
-                color:white;    
-                padding:5px;
-            }            
-            .impar {
-                background-color: rgba(220,63,38,0.5);
-            }
-            .par {
-                background-color: #532b7b;
-            }
-            .shuttle label {
-                width:100px;
-            }
-            .shuttle span{
-                margin-left:50px;
-            }
-            .navbar {
-                background-color: black!important;
-            }
-            body {
-                background-color: #532b7b;
-            }
-            .navbar-brand {
-                color:white;                
-            }
-            .navbar-brand img{
-                margin-right:5px;
-            }
-            #tags {
-                padding:15px 10px;
-            }
-            #tags a {
-                border:1px solid white;
-                text-decoration: none;
-                padding:3px;
-                color:white;
-                font-weight: bold;
-            }
-            .novisible {
-                display:none;
-                visibility: none;
-            }
-        </style>
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
-            <div class="container-fluid">
-              <a class="navbar-brand" href="#"> <img class="rounded-circle img-thumbnail" style="width: 35px; height: 35px" src="https://files.eventee.co/sC4k9NWdrqyamBS4RtGQ/rkLovPUFjD3IQT9G/YbCexIS18476327061723661737.png">Shuttles</a>
-            </div>
-        </nav>
-        <div id="tags">
-            <a href="#" class="tag">All</a>
-            <a href="#" class="tag">#santodomingo</a>
-            <a href="#" class="tag">#santaines</a>
-            <a href="#" class="tag">#portahotel</a>
+
+<head>
+  <title>Volcano Shuttles</title>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore-compat.js"></script>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, minimum-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </link>
+  <meta charset="UTF-8">
+  <style>
+    .shuttle {
+      border: 0px;
+      border-radius: 0%;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      color: white;
+      padding: 5px;
+    }
+
+    .impar {
+      background-color: rgba(220, 63, 38, 0.5);
+    }
+
+    .par {
+      background-color: #532b7b;
+    }
+
+    .shuttle label {
+      width: 100px;
+    }
+
+    .shuttle span {
+      margin-left: 50px;
+    }
+
+    .navbar {
+      background-color: black !important;
+    }
+
+    body {
+      background-color: #532b7b;
+    }
+
+    .navbar-brand {
+      color: white;
+    }
+
+    .navbar-brand img {
+      margin-right: 5px;
+    }
+
+    #tags {
+      padding: 15px 10px;
+    }
+
+    #tags a {
+      border: 1px solid white;
+      text-decoration: none;
+      padding: 3px;
+      color: white;
+      font-weight: bold;
+    }
+
+    .novisible {
+      display: none;
+      visibility: none;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"> <img class="rounded-circle img-thumbnail" style="width: 35px; height: 35px"
+          src="https://files.eventee.co/sC4k9NWdrqyamBS4RtGQ/rkLovPUFjD3IQT9G/YbCexIS18476327061723661737.png">Shuttles</a>
+    </div>
+  </nav>
+  <div id="tags">
+    <a href="#" class="tag">All</a>
+    <a href="#" class="tag">#santodomingo</a>
+    <a href="#" class="tag">#santaines</a>
+    <a href="#" class="tag">#portahotel</a>
+  </div>
+  <div id="shuttlelist">
+    <div class="shuttle card novisible" id="template" onclick="editar(this)">
+      <div><label>Plate</label>:<span class="plate"></span></div>
+      <diV><label>Status</label>:<span class="status"></span></div>
+      <div><label>Direction</label>:<span class="direction"></span></div>
+      <div><label>Elapsed</label>:<span class="elapsed"></span></div>
+    </div>
+  </div>
+  <div class="modal" tabindex="-1" id="ventanaModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update Shuttle</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+            onclick="cerrarModal()"></button>
         </div>
-        <div id="shuttlelist">
-            <div class="shuttle card novisible" id="template" onclick="editar(this)">
-                <div><label>Plate</label>:<span class="plate"></span></div>
-                <diV><label>Status</label>:<span class="status"></span></div>
-                <div><label>Direction</label>:<span class="direction"></span></div>
-                <div><label>Elapsed</label>:<span class="elapsed"></span></div>
-            </div>            
-        </div>  
-		<div class="modal" tabindex="-1" id="ventanaModal">
-		  <div class="modal-dialog">
-			<div class="modal-content">
-			  <div class="modal-header">
-				<h5 class="modal-title">Update Shuttle</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"  onclick="cerrarModal()"></button>
-			  </div>
-			  <div class="modal-body">
-			  <input type="hidden" value="" id="idBus"/>
-				<div class="mb-3">
-					<label>Status</label>
-					<div>
-					<input class="form-check-input" name="status" type="radio" value="boarding" id="chkBoarding"><label>Boarding</label>
-					<input class="form-check-input" name="status" type="radio" value="in transit" id="chkTransit"><label>In transit</label>
-					</div>
-				</div>
-				<div class="mb-3">
-					<label>Route</label>
-					<div>
-					<label>From:</label>
-					<select class="form-select" id="selFrom">
-						<option value="santo domingo">Santo Domingo</option>
-						<option value="santa inés">Santa Inés</option>
-						<option value="tenedor cerro">Tenedor del Cerro</option>
-						<option value="la merced">La merced</option>
-						<option value="porta">Porta</option>
-						<option value="candelaria">Candelaria</option>
-					</select>
-					</div>
-					<label>To:</label>
-					<select class="form-select" id="selTo">
-						<option value="santo domingo">Santo Domingo</option>
-						<option value="santa inés">Santa Inés</option>
-						<option value="tenedor cerro">Tenedor del Cerro</option>
-						<option value="la merced">La merced</option>
-						<option value="porta">Porta</option>
-						<option value="candelaria">Candelaria</option>
-					</select>
-				</div>
-			  </div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cerrarModal()">Close</button>
-				<button type="button" class="btn btn-primary" id="btnUpdate">Update</button>
-			  </div>
-			</div>
-		  </div>
-		</div>
-        <script type="text/javascript">
-		  var buses={};
+        <div class="modal-body">
+          <input type="hidden" value="" id="idBus" />
+          <div class="mb-3">
+            <label>Status</label>
+            <div>
+              <input class="form-check-input" name="status" type="radio" value="boarding"
+                id="chkBoarding"><label>Boarding</label>
+              <input class="form-check-input" name="status" type="radio" value="in transit" id="chkTransit"><label>In
+                transit</label>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label>Route</label>
+            <div>
+              <label>From:</label>
+              <select class="form-select" id="selFrom">
+                <option value="santo domingo">Santo Domingo</option>
+                <option value="santa inés">Santa Inés</option>
+                <option value="tenedor cerro">Tenedor del Cerro</option>
+                <option value="la merced">La merced</option>
+                <option value="porta">Porta</option>
+                <option value="candelaria">Candelaria</option>
+              </select>
+            </div>
+            <label>To:</label>
+            <select class="form-select" id="selTo">
+              <option value="santo domingo">Santo Domingo</option>
+              <option value="santa inés">Santa Inés</option>
+              <option value="tenedor cerro">Tenedor del Cerro</option>
+              <option value="la merced">La merced</option>
+              <option value="porta">Porta</option>
+              <option value="candelaria">Candelaria</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="cerrarModal()">Close</button>
+          <button type="button" class="btn btn-primary" id="btnUpdate">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    var buses = {};
 
-			const queryString = window.location.search;
+    const queryString = window.location.search;
 
-			const urlParams = new URLSearchParams(queryString);
-			const admin = urlParams.get('admin');
-			
-			function filtrar(obj){
-				let tag = obj.innerHTML;
-				tag=tag.replace("#","");
-				let elems0=document.querySelectorAll('.impar');
-				var index0 = 0, length0 = elems0.length;
-				for ( index0 = 0; index0 < length0; index0++) {
-					elems0[index0].style.display='block';
-				}
-				if(tag!="All"){
-					console.log("filtrando:");
-					console.log(tag);
-					let elems=document.querySelectorAll('.shuttle');
-					var index = 0, length = elems.length;
-					for ( index = 0; index < length; index++) {
-						elems[index].style.display='none';
-					}
-					elems=document.querySelectorAll('div[data-tags*="'+tag+'"]');
-					length = elems.length;
-					for ( index = 0; index < length; index++) {
-						elems[index].style.display='block';
-					}
-				}
-				
-			}
+    const urlParams = new URLSearchParams(queryString);
+    const admin = urlParams.get('admin');
 
-			function editar(obj){
-				if(admin==1){
-					document.getElementById('ventanaModal').className='modal show';
-					document.getElementById('ventanaModal').style.display='block';
+    function filtrar(obj) {
+    console.log(obj)
+      let tag = obj.innerHTML;
+      tag = tag.replace("#", "");
+      let elems0 = document.querySelectorAll('.impar');
+      var index0 = 0, length0 = elems0.length;
+      for (index0 = 0; index0 < length0; index0++) {
+        elems0[index0].style.display = 'block';
+      }
+      if (tag != "All") {
+        console.log("filtrando:");
+        console.log(tag);
+        let elems = document.querySelectorAll('.shuttle');
+        var index = 0, length = elems.length;
+        for (index = 0; index < length; index++) {
+          elems[index].style.display = 'none';
+        }
+        elems = document.querySelectorAll('div[data-tags*="' + tag + '"]');
+        length = elems.length;
+        for (index = 0; index < length; index++) {
+          elems[index].style.display = 'block';
+        }
+      }
 
-					document.getElementById('idBus').value=obj.id;
-					let objBus= buses[obj.id];
-					if((objBus!=undefined)&&(objBus!=null)){
-						if(objBus.status=="boarding") document.getElementById('chkBoarding').checked=true;
-						else document.getElementById('chkBoarding').checked=false;
-						if(objBus.status=="in transit") document.getElementById('chkTransit').checked=true;
-						else document.getElementById('chkTransit').checked=false;
-						let strDirection = objBus.ruta;
-						if(strDirection!=""){
-						  let arrData=strDirection.split(' -> ');
-						  document.getElementById('selFrom').value=arrData[0];
-						  document.getElementById('selTo').value=arrData[1];
-						}
-					}
+    }
 
-				}
-			}
-			
-			function cerrarModal(){
-					document.getElementById('ventanaModal').className='modal';
-					document.getElementById('ventanaModal').style.display='none';
-			}
-			
-            function desplegar(item,index){
-                var nuevo = document.getElementById(index);
-                if((nuevo==null)||(nuevo==undefined)){
-                var template = document.getElementById('template');
-                nuevo = template.cloneNode(true);
-                nuevo.id=index;
-                }
-                var  objPlate = nuevo.querySelector('.plate');
-                objPlate.innerHTML=item.plate;
-                var  objStatus = nuevo.querySelector('.status');
-                objStatus.innerHTML=item.status;
-                var  objDirection = nuevo.querySelector('.direction');
-                objDirection.innerHTML=item.ruta;
-                nuevo.className = 'shuttle card impar';
-				nuevo.dataset.tags=item.tags;
-                document.getElementById('shuttlelist').append(nuevo);
-            }
-			var userSelection = document.getElementsByClassName('tag');
+    function editar(obj) {
+      if (admin == 1) {
+        document.getElementById('ventanaModal').className = 'modal show';
+        document.getElementById('ventanaModal').style.display = 'block';
 
-			for(var i = 0; i < userSelection.length; i++) {
-			  (function(index) {
-				userSelection[index].addEventListener("click", function(e) {
-				   filtrar(e.currentTarget);
-				 })
-			  })(i);
-			}
+        document.getElementById('idBus').value = obj.id;
+        let objBus = buses[obj.id];
+        if ((objBus != undefined) && (objBus != null)) {
+          if (objBus.status == "boarding") document.getElementById('chkBoarding').checked = true;
+          else document.getElementById('chkBoarding').checked = false;
+          if (objBus.status == "in transit") document.getElementById('chkTransit').checked = true;
+          else document.getElementById('chkTransit').checked = false;
+          let strDirection = objBus.ruta;
+          if (strDirection != "") {
+            let arrData = strDirection.split(' -> ');
+            document.getElementById('selFrom').value = arrData[0];
+            document.getElementById('selTo').value = arrData[1];
+          }
+        }
+
+      }
+    }
+
+    function cerrarModal() {
+      document.getElementById('ventanaModal').className = 'modal';
+      document.getElementById('ventanaModal').style.display = 'none';
+    }
+
+    function desplegar(item, index) {
+      var nuevo = document.getElementById(index);
+      if ((nuevo == null) || (nuevo == undefined)) {
+        var template = document.getElementById('template');
+        nuevo = template.cloneNode(true);
+        nuevo.id = index;
+      }
+      var objPlate = nuevo.querySelector('.plate');
+      objPlate.innerHTML = item.plate;
+      var objStatus = nuevo.querySelector('.status');
+      objStatus.innerHTML = item.status;
+      var objDirection = nuevo.querySelector('.direction');
+      objDirection.innerHTML = item.ruta;
+      nuevo.className = 'shuttle card impar';
+      nuevo.dataset.tags = item.tags;
+      document.getElementById('shuttlelist').append(nuevo);
+    }
+    var userSelection = document.getElementsByClassName('tag');
+
+    for (var i = 0; i < userSelection.length; i++) {
+      (function (index) {
+        userSelection[index].addEventListener("click", function (e) {
+          filtrar(e.currentTarget);
+        })
+      })(i);
+    }
 
 
-        </script>
-<script type="module">
+  </script>
+  <script type="module">
 
 
     // Import the functions you need from the SDKs you need
-  import { initializeApp }  from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-  import { updateDoc,doc,collection,query,where,onSnapshot,getFirestore } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
-  
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+    import { updateDoc, doc, collection, query, where, onSnapshot, getFirestore } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
     // Your web app's Firebase configuration
     const firebaseConfig = {
       apiKey: "AIzaSyBVhrIZWdtmtZaO-bgzPpM4p-6N6h5fTyI",
@@ -228,68 +247,71 @@
       messagingSenderId: "813736719065",
       appId: "1:813736719065:web:03a1d6d5a01ca7cc3884c8"
     };
-  
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  
-  
-  // Initialize Cloud Firestore and get a reference to the service
-  const db = getFirestore(app);
-  
-  const q = query(collection(db,"buses"),where("state","==","a"));
-  const unsubscribe = onSnapshot(q,(querySnapshot)=>{
-    buses = {};
-    querySnapshot.forEach((bus)=>{
-        buses[bus.id]=bus.data();
-    });
-    for(const [key,value] of Object.entries(buses)){
-        desplegar(value,key);
-    }
-    
-  })
-  var timer = setTimeout(()=>{
-    actualiza();
-  },1000);
-  function actualiza(){
-    for(const [key,value] of Object.entries(buses)){
-        if(value['laststatus']){
-            console.log(value['laststatus']);
-            let dateobj = new Date(parseInt(value['laststatus']));
-            console.log(dateobj);
-            let nowobj = new Date();
-            let diff = (nowobj.getTime()-dateobj.getTime())/1000;
-            let mins = diff / 60;
-            let segs = mins-Math.floor(mins);
-            let obj = document.getElementById(key);
-            let objElapsed = obj.querySelector('.elapsed');
-            objElapsed.innerHTML = ("00" + Math.floor(mins)).slice(-2)+':'+("00"+Math.floor(segs*60)).slice(-2);
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+
+    // Initialize Cloud Firestore and get a reference to the service
+    const db = getFirestore(app);
+
+    const q = query(collection(db, "buses"), where("state", "==", "a"));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      buses = {};
+      querySnapshot.forEach((bus) => {
+        buses[bus.id] = bus.data();
+      });
+      for (const [key, value] of Object.entries(buses)) {
+        desplegar(value, key);
+      }
+
+    })
+    var timer = setTimeout(() => {
+      actualiza();
+    }, 1000);
+    function actualiza() {
+      for (const [key, value] of Object.entries(buses)) {
+        if (value['laststatus']) {
+          console.log(value['laststatus']);
+          let dateobj = new Date(parseInt(value['laststatus']));
+          console.log(dateobj);
+          let nowobj = new Date();
+          let diff = (nowobj.getTime() - dateobj.getTime()) / 1000;
+          let mins = diff / 60;
+          let segs = mins - Math.floor(mins);
+          let obj = document.getElementById(key);
+          let objElapsed = obj.querySelector('.elapsed');
+          objElapsed.innerHTML = ("00" + Math.floor(mins)).slice(-2) + ':' + ("00" + Math.floor(segs * 60)).slice(-2);
         }
         else console.log("no valores");
+      }
+      timer = setTimeout(() => {
+        actualiza();
+      }, 1000);
     }
-    timer = setTimeout(()=>{
-    actualiza();
-  },1000);
-  }
-  
-  document.getElementById('btnUpdate').addEventListener('click',function (e){
-				let strStatus="";
-				if(document.getElementById('chkBoarding').checked) strStatus="boarding";
-				if(document.getElementById('chkTransit').checked) strStatus="in transit";
-				let from = document.getElementById('selFrom').value;
-				let to = document.getElementById('selTo').value;
-			
-				let newData = {
-					ruta:from+" -> "+to,
-					status:strStatus,
-					laststatus:(new Date()).getTime()
-				};
-			
-				let idBus= document.getElementById('idBus').value;
-				
-				const bus = doc(db,"buses",idBus);
 
-				updateDoc(bus,newData);
-			});
+    document.getElementById('btnUpdate').addEventListener('click', function (e) {
+      let strStatus = "";
+      if (document.getElementById('chkBoarding').checked) strStatus = "boarding";
+      if (document.getElementById('chkTransit').checked) strStatus = "in transit";
+      let from = document.getElementById('selFrom').value;
+      let to = document.getElementById('selTo').value;
+
+      let newData = {
+        ruta: from + " -> " + to,
+        status: strStatus,
+        laststatus: (new Date()).getTime()
+      };
+
+      let idBus = document.getElementById('idBus').value;
+
+      const bus = doc(db, "buses", idBus);
+
+      updateDoc(bus, newData);
+    });
   </script>
-    </body>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+
 </html>
