@@ -8,10 +8,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import './SignUp.css'; // Import the CSS file
+import './SignUp.css'; 
 
 const SignUpModal = ({ open, handleClose }) => {
-  const [username, setUsername] = useState(''); // State for Username
+  const [username, setUsername] = useState(''); 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -29,15 +29,12 @@ const SignUpModal = ({ open, handleClose }) => {
       aria-describedby="sign-up-modal-description"
     >
       <Box className="modal-container">
-        {/* Modal Title */}
         <Typography id="sign-up-modal-title" variant="h6" component="h2" className="modal-title">
           Sign Up
         </Typography>
 
-        {/* Form */}
         <Box component="form" onSubmit={handleSubmit} noValidate className="modal-form">
           
-          {/* Username Input */}
           <TextField
             margin="normal"
             required
@@ -51,7 +48,6 @@ const SignUpModal = ({ open, handleClose }) => {
             onChange={(e) => setUsername(e.target.value)}
           />
 
-          {/* Email Input */}
           <TextField
             margin="normal"
             required
@@ -64,7 +60,6 @@ const SignUpModal = ({ open, handleClose }) => {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          {/* Password Input */}
           <TextField
             margin="normal"
             required
@@ -90,7 +85,6 @@ const SignUpModal = ({ open, handleClose }) => {
             }}
           />
 
-          {/* Submit Button */}
           <Button
             type="submit"
             fullWidth
