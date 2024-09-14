@@ -1,61 +1,81 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .logoBox {
-    margin-bottom: 20px ;
-  }
-  
-  .logo {
-    width: 150px;
-    height: 150px;
-    object-fit: contain;
-  }
-  
-  .formContainer {
-    width: 100%;
-    background-color: white;
-    padding: 24px;
-    border-radius: 8px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .signInTitle {
-    color: black;
-  }
+/* Reset margin and padding for the entire page */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* Ensure body takes full height */
+  width: 100%; /* Ensure body takes full width */
+  overflow: hidden; /* Prevent any scrolling */
+}
 
-  .rememberForgotBox {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    margin-top: 8px;
-    padding-left: 8px;
-  }
-  
-  .rememberMe {
-    color: black;
-  }
+.signInContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height of the viewport */
+  width: 100vw;  /* Full width of the viewport */
+  background-color: #dedede; /* Background color for the full viewport */
+  overflow: hidden; /* Prevent scrolling */
+  margin: 0;
+  padding: 0;
+}
 
-  .forgotPassword{
-    margin-right: 1rem !important;
-  }
-  
-  .formContainer .signInButton{
-    margin-top: 1rem; 
-    margin-bottom: 1rem; 
-  }
-  
-  .link {
-    text-decoration: none !important;
-  }
-  
-  .link:hover {
-    text-decoration: underline !important;
-  }
-  
+/* Form container styling */
+.formContainer {
+  width: 100%;
+  max-width: 400px; /* Limit max width of the form */
+  background-color: white;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logoBox {
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+.signInTitle {
+  color: black;
+}
+
+.rememberForgotBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-top: 8px;
+  padding-left: 8px;
+}
+
+.rememberMe {
+  color: black;
+}
+
+.forgotPassword {
+  margin-right: 1rem !important;
+}
+
+.form .signInButton {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.link {
+  text-decoration: none !important;
+}
+
+.link:hover {
+  text-decoration: underline !important;
+}
+
+.SignUpBox {
+  text-align: center;
+}
