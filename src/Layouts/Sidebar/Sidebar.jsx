@@ -16,13 +16,13 @@ const Sidebar = () => {
       <h2>Admin</h2>
       <ul style={{ listStyle: 'none', padding: 0 }}>
         <li>
-          <Link to="/users" className="sidebar-link">
+          <Link to="/dashboard/users" className="sidebar-link">
             <FaUsers className="sidebar-icon" /> 
             Users
           </Link>
         </li>
         <li>
-          <Link to="/shuttles" className="sidebar-link">
+          <Link to="/dashboard/shuttles" className="sidebar-link">
             <FaShuttleVan className="sidebar-icon" /> 
             Shuttles
           </Link>

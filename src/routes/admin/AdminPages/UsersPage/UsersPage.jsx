@@ -5,6 +5,7 @@ import CreateUsersModal from '../../../../Components/CreateUsersModal/CreateUser
 import './UsersPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter, faCheck } from '@fortawesome/free-solid-svg-icons';
+import DashboardLayout from '../../../../Layouts/DashboardLayout/DashboardLayout';
 
 const UsersPage = () => {
   const [usersData, setUsersData] = useState([
@@ -79,7 +80,8 @@ const UsersPage = () => {
   };
 
   return (
-    <div className="users-page-container">
+   <DashboardLayout>
+     <div className="users-page-container">
       <div className="top-bar">
         <div className="search-filter-group">
           <select 
@@ -154,6 +156,8 @@ const UsersPage = () => {
         onSave={handleSaveEdit}
       />
     </div>
+    
+   </DashboardLayout>
   );
 };
 

@@ -4,12 +4,14 @@ import './routes/Main'
 import Main from './routes/Main'
 import Admin from './routes/admin/Admin'
 import SignIn from './routes/signIn/SignIn'
+import { createBrowserRouter } from 'react-router-dom'
+import BaseRouting from './routes/BaseRouting'
 
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
-   <SignIn/>
+   <BaseRouting/>
   )
 }
 

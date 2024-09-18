@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import Header from '../layoult/Header/Header';
-import Card from '../layoult/Card/Card';
+import Header from '../Layouts/Header/Header';
+import Card from '../Layouts/Card/Card';
 import { Box, TextField, Button } from '@mui/material';
 
 function Main() {

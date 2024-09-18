@@ -5,6 +5,7 @@ import CreateShuttlesModal from '../../../../Components/CreateShuttlesModal/Crea
 import './ShuttlesPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter, faCheck } from '@fortawesome/free-solid-svg-icons';
+import DashboardLayout from '../../../../Layouts/DashboardLayout/DashboardLayout';
 
 const ShuttlesPage = () => {
   const [shuttlesData, setShuttlesData] = useState([
@@ -87,7 +88,8 @@ const ShuttlesPage = () => {
   };
 
   return (
-    <div className="shuttles-page-container">
+<DashboardLayout>
+<div className="shuttles-page-container">
       <div className="top-bar">
         <div className="search-filter-group">
           <select 
@@ -163,6 +165,7 @@ const ShuttlesPage = () => {
         onSave={handleSaveEdit}
       />
     </div>
+</DashboardLayout>
   );
 };
 
