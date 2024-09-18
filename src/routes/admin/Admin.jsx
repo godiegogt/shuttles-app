@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Header from '../../layoult/Header/Header';
 import Sidebar from '../../layoult/Sidebar/Sidebar';
-import Users from './AdminPages/Users';
-import Shuttles from './AdminPages/Shuttles';
+import Users from './AdminPages/UsersPage/UsersPage';
+import Shuttles from './AdminPages/ShuttlesPage/ShuttlesPage';
 import './Admin.css'
 
 const Admin = () => {

@@ -7,9 +7,9 @@ const Sidebar = () => {
     <div style={{
       width: '250px', 
       background: '#fff', 
-      height: '94%', 
+      height: '100%', 
       margin: '10px 0', 
-      borderRadius: '0 10px 10px 0', 
+      borderRadius: '0 10px 0 0', 
       padding: '0.5rem 1rem',
       boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
     }}>

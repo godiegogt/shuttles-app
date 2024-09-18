@@ -1,58 +1,32 @@
 import React from 'react';
+import { FaEdit, FaTrash } from 'react-icons/fa';
+import './CardUsersAdmin.css';
 
-const CardUsersAdmin = ({ profilePic, username, email, role }) => {
+const CardUsersAdmin = ({ profilePic, username, email, role, onDelete, onEdit }) => {
   return (
-    <div style={cardStyle}>
+    <div className="card">
       <img
         src={profilePic}
         alt={`${username}'s profile`}
-        style={imageStyle}
+        className="profile-pic"
       />
-      <div style={infoStyle}>
-        <h3 style={usernameStyle}>{username}</h3>
-        <p style={detailStyle}><strong>Email:</strong> {email}</p>
-        <p style={detailStyle}><strong>Role:</strong> {role}</p>
+      <div className="info-container">
+        <div className="text-info">
+          <div className="info-item"><strong>Username:</strong> <span className="info-value">{username}</span></div>
+          <div className="info-item"><strong>Email:</strong> <span className="info-value">{email}</span></div>
+          <div className="info-item"><strong>Role:</strong> <span className="info-value">{role}</span></div>
+        </div>
+        <div className="button-container">
+          <button className="button-icon edit-icon" onClick={onEdit}>
+            <FaEdit className="icon" />
+          </button>
+          <button className="button-icon delete-icon" onClick={onDelete}>
+            <FaTrash className="icon" />
+          </button>
+        </div>
       </div>
     </div>
   );
-};
-
-const cardStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  padding: '15px',
-  marginBottom: '15px',
-  borderRadius: '10px',
-  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-  backgroundColor: '#fff',
-  width: '100%',
-  maxWidth: '800px', 
-};
-
-const imageStyle = {
-  width: '50px', 
-  height: '50px',
-  borderRadius: '50%',
-  marginRight: '20px',
-};
-
-const infoStyle = {
-  display: 'flex',
-  flexDirection: 'row',
-  justifyContent: 'space-between', 
-  width: '100%',
-  alignItems: 'center',
-};
-
-const usernameStyle = {
-  marginRight: '20px',
-  flex: 1, 
-};
-
-const detailStyle = {
-  marginRight: '15px',
-  fontSize: '14px',
-  color: '#555',
 };
 
 export default CardUsersAdmin;

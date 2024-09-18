@@ -1,12 +1,3 @@
-/* Reset margin and padding for the entire page */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%; /* Ensure body takes full height */
-  width: 100%; /* Ensure body takes full width */
-  overflow: hidden; /* Prevent any scrolling */
-}
-
 .signInContainer {
   display: flex;
   justify-content: center;
