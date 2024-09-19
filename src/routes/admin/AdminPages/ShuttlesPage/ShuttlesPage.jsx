@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CardShuttlesAdmin from '../../../../Components/CardShuttlesAdmin/CardShuttlesAdmin';
 import EditShuttlesModal from '../../../../Components/EditShuttlesModal/EditShuttlesModal';
 import CreateShuttlesModal from '../../../../Components/CreateShuttlesModal/CreateShuttlesModal';
@@ -6,40 +6,11 @@ import './ShuttlesPage.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter, faCheck } from '@fortawesome/free-solid-svg-icons';
 import DashboardLayout from '../../../../Layouts/DashboardLayout/DashboardLayout';
+import useShuttle from '../../../../hooks/useShuttle';
+import { onValue, ref } from 'firebase/database';
 
 const ShuttlesPage = () => {
-  const [shuttlesData, setShuttlesData] = useState([
-    {
-      id: 1,
-      plateNumber: 'ABC123',
-      currentState: 'In Route',
-      origin: 'Station A',
-      destination: 'Station B',
-      startTime: '2024-09-18T08:00:00',
-      timeElapsed: '1 hour',
-      estimatedEndTime: '2024-09-18T10:00:00'
-    },
-    {
-      id: 2,
-      plateNumber: 'DEF123',
-      currentState: 'Boarding',
-      origin: 'Station C',
-      destination: 'Station D',
-      startTime: '2024-09-18T08:00:00',
-      timeElapsed: '1 hour',
-      estimatedEndTime: '2024-09-18T10:00:00'
-    },
-    {
-      id: 3,
-      plateNumber: 'GHI123',
-      currentState: 'In Route',
-      origin: 'Station E',
-      destination: 'Station F',
-      startTime: '2024-09-18T08:00:00',
-      timeElapsed: '1 hour',
-      estimatedEndTime: '2024-09-18T10:00:00'
-    },
-  ]);
+
 
   const [editShuttle, setEditShuttle] = useState(null);
   const [createModalOpen, setCreateModalOpen] = useState(false);
@@ -49,13 +20,23 @@ const ShuttlesPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchBy, setSearchBy] = useState('plateNumber');
 
-  const filteredShuttles = shuttlesData.filter(shuttle => {
+  //HOOKS
+  const {addShuttle,database,shuttles} = useShuttle();
+
+  //EFFECTS
+
+  
+
+
+
+
+  const filteredShuttles = shuttles.filter(shuttle => {
     const stateMatch = selectedState === 'All States' || shuttle.currentState === selectedState;
     return shuttle[searchBy].toLowerCase().includes(searchQuery.toLowerCase()) && stateMatch;
   });
 
   const handleDelete = (id) => {
-    setShuttlesData(shuttlesData.filter(shuttle => shuttle.id !== id));
+    setShuttlesData(shuttles.filter(shuttle => shuttle.id !== id));
   };
 
   const handleEdit = (shuttle) => {
@@ -64,13 +45,14 @@ const ShuttlesPage = () => {
   };
 
   const handleSaveEdit = (updatedShuttle) => {
-    setShuttlesData(shuttlesData.map(shuttle => shuttle.id === updatedShuttle.id ? updatedShuttle : shuttle));
+    setShuttlesData(shuttles.map(shuttle => shuttle.id === updatedShuttle.id ? updatedShuttle : shuttle));
     setEditShuttle(null);
     setEditModalOpen(false);
   };
 
   const handleCreate = (newShuttle) => {
-    setShuttlesData([...shuttlesData, newShuttle]);
+   // setShuttlesData([...shuttlesData, newShuttle]);
+   addShuttle(newShuttle)
     setCreateModalOpen(false);
   };
 
@@ -86,6 +68,9 @@ const ShuttlesPage = () => {
     setSelectedState(state);
     setFilterDropdownOpen(false);
   };
+
+
+
 
   return (
 <DashboardLayout>
