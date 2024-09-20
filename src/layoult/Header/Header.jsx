@@ -10,8 +10,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import logo from '../Header/img/Logo.png';
 import user from '../Header/img/user.jpg';
+import DensityMediumIcon from '@mui/icons-material/DensityMedium';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 function ResponsiveAppBar() {
+  const isSmallScreen = useMediaQuery('(max-width: 360px) and (max-height: 724px)');
+
   return (
     <AppBar
       position="static"
@@ -42,10 +46,18 @@ function ResponsiveAppBar() {
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <IconButton aria-label="filter" color="inherit">
-              <FontAwesomeIcon icon={faFilter} />
-            </IconButton>
-            <Avatar alt="User" src={user} sx={{ width: 40, height: 40, ml: 2 }} />
+            {isSmallScreen ? (
+              <IconButton aria-label="menu" color="inherit">
+                <DensityMediumIcon />
+              </IconButton>
+            ) : (
+              <>
+                <IconButton aria-label="filter" color="inherit">
+                  <FontAwesomeIcon icon={faFilter} />
+                </IconButton>
+                <Avatar alt="User" src={user} sx={{ width: 40, height: 40, ml: 2 }} />
+              </>
+            )}
           </Box>
         </Toolbar>
       </Container>
@@ -54,4 +66,3 @@ function ResponsiveAppBar() {
 }
 
 export default ResponsiveAppBar;
-

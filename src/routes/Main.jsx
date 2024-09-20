@@ -4,25 +4,40 @@ import Card from '../layoult/Card/Card';
 import { Box, TextField, Button } from '@mui/material';
 
 function Main() {
-  // Estado para los valores dinámicos
-  const [placa, setPlaca] = useState("123BCfD");
-  const [status, setStatus] = useState("En Ruta");
-  const [from, setFrom] = useState("Coban");
-  const [to, setTo] = useState("Carcha");
-  const [estimatedTime, setEstimatedTime] = useState(90);
-
   return (
     <div>
       <Header />
-      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap', mt: 4 }}>
+      <Box display={'flex'}  flexDirection={'row'} flexWrap={'wrap'} justifyContent={'flex-start'}>
         <Card 
-          placa={placa} 
-          status={status} 
-          from={from} 
-          to={to} 
-          estimatedTime={estimatedTime} 
+          placa={"12asdffD"} 
+          status={"En Ruta"} 
+          from={"Coban"} 
+          to={"Carcha"} 
         />
+      
+        <Card 
+          placa={"12asdffD"} 
+          status={"En Ruta"} 
+          from={"Carcha"} 
+          to={"Coban"} 
+        />
+
+        <Card 
+          placa={"12asdffD"} 
+          status={"En Ruta"} 
+          from={"Carcha"} 
+          to={"Coban"} 
+        />
+
+        <Card 
+          placa={"12asdffD"} 
+          status={"En Ruta"} 
+          from={"Carcha"} 
+          to={"Coban"} 
+        />
+
       </Box>
+      
     </div>
   );
 }

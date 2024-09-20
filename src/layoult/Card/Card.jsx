@@ -7,29 +7,30 @@ import CardActionArea from '@mui/material/CardActionArea';
 import bus from '../Card/img/bus.jpeg';
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import EastIcon from '@mui/icons-material/East';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const CustomCard = ({ placa, status, from, to, estimatedTime }) => {
-  const [startTime, setStartTime] = useState(null); // Guardar la hora de salida
-  const [elapsedTime, setElapsedTime] = useState(0); // Tiempo transcurrido
-  const [arrivalTime, setArrivalTime] = useState(''); // Hora estimada de llegada
+  const [startTime, setStartTime] = useState(null); 
+  const [elapsedTime, setElapsedTime] = useState(0); 
+  const [arrivalTime, setArrivalTime] = useState(''); 
+  
+  // Detect screen size
+  const isSmallScreen = useMediaQuery('(max-width:600px)'); // Adjust for small screens
 
-  // Función que se ejecuta al iniciar la ruta
   const startRoute = () => {
     const currentTime = new Date();
     setStartTime(currentTime);
 
-    // Calculamos el tiempo estimado de llegada
-    const estimatedArrival = new Date(currentTime.getTime() + estimatedTime * 60000); // estimatedTime está en minutos
+    const estimatedArrival = new Date(currentTime.getTime() + estimatedTime * 60000); 
     setArrivalTime(estimatedArrival.toLocaleTimeString());
 
-    // Iniciar el contador de tiempo transcurrido
     const interval = setInterval(() => {
       const now = new Date();
-      const timeElapsed = Math.floor((now - currentTime) / 60000); // Tiempo en minutos
+      const timeElapsed = Math.floor((now - currentTime) / 60000); 
       setElapsedTime(timeElapsed);
     }, 1000);
 
-    return () => clearInterval(interval); // Limpiar el intervalo cuando se desmonte el componente
+    return () => clearInterval(interval);
   };
 
   useEffect(() => {
@@ -39,7 +40,12 @@ const CustomCard = ({ placa, status, from, to, estimatedTime }) => {
   }, [status]);
 
   return (
-    <Card sx={{ maxWidth: 345, margin: '20px', backgroundColor: '#ffff' }}>
+    <Card sx={{ 
+        maxWidth: isSmallScreen ? 240 : 290, // Adjust card width for small screens
+        margin: '20px', 
+        backgroundColor: '#ffff' 
+      }}
+    >
       <CardActionArea>
         <CardMedia
           component="img"
@@ -48,15 +54,30 @@ const CustomCard = ({ placa, status, from, to, estimatedTime }) => {
           alt="bus"
         />
         <CardContent>
-          {/* Placa and Route Status */}
-          <Typography gutterBottom variant="body1" component="div" sx={{ display: 'flex', alignItems: 'center', gap: 15, justifyContent: 'space-between' }}>
+          
+          <Typography gutterBottom variant="body1" component="div" 
+            sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 2, 
+              justifyContent: 'space-between', 
+              fontSize: isSmallScreen ? '0.8rem' : '1rem' // Adjust font size
+            }}
+          >
             <div>{`Placa: ${placa}`}</div>
             <div>{status}</div>
           </Typography>
           <hr />
 
-          {/* Route (From -> To) */}
-          <Typography gutterBottom variant="h6" component="div" sx={{ display: 'flex', alignItems: 'center', gap: 2, justifyContent: 'center' }}>
+          <Typography gutterBottom variant="h6" component="div" 
+            sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: 1, 
+              justifyContent: 'center', 
+              fontSize: isSmallScreen ? '0.9rem' : '1.2rem' // Adjust font size
+            }}
+          >
             <span>{from}</span>
             <EastIcon />
             <DirectionsBusIcon />
@@ -65,11 +86,29 @@ const CustomCard = ({ placa, status, from, to, estimatedTime }) => {
           </Typography>
           <hr />
 
-          {/* Time Information */}
-          <Typography gutterBottom variant="body2" component="div" sx={{ display: 'flex', alignItems: 'center', gap: 4, justifyContent: 'center' }}>
-            <p>{`Salió: ${startTime ? startTime.toLocaleTimeString() : 'N/A'}`}</p>
-            <p>{`Tiempo desde la salida: ${elapsedTime} mins`}</p>
-            <p>{`Llegará: ${arrivalTime}`}</p>
+          <Typography gutterBottom variant="body2" component="div" 
+            sx={{ 
+              display: 'flex', 
+              flexDirection: isSmallScreen ? 'column' : 'row', // Stack elements vertically on small screens
+              alignItems: 'center',
+              gap: 2, 
+              justifyContent: 'center',
+              fontSize: isSmallScreen ? '0.7rem' : '0.9rem' // Adjust font size
+            }}
+            style={{ textAlign: 'center' }}
+          >
+            <div>
+              <p>Salió:</p>
+              {`${startTime ? startTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : 'N/A'}`}
+            </div>
+            <div>
+              <p>Tiempo desde que salió:</p>
+              {`${elapsedTime} mins`}
+            </div>
+            <div>
+              <p>Llegará:</p>
+              {` ${arrivalTime}`}
+            </div>
           </Typography>
         </CardContent>
       </CardActionArea>
@@ -78,7 +117,6 @@ const CustomCard = ({ placa, status, from, to, estimatedTime }) => {
 };
 
 export default CustomCard;
-
 
 
 
