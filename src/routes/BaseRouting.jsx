@@ -16,7 +16,6 @@ const router=createBrowserRouter(
         <Route path="signin" element={<SignIn />} />
         <Route
           path="dashboard"
-          element={<UsersPage />}
         >
             <Route path="shuttles" element={<ShuttlesPage />} />
             <Route path="users" element={<UsersPage />} />
