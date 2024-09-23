@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter, faCheck } from '@fortawesome/free-solid-svg-icons';
 import DashboardLayout from '../../../../Layouts/DashboardLayout/DashboardLayout';
 import useShuttle from '../../../../hooks/useShuttle';
-import { onValue, ref } from 'firebase/database';
+import { onValue, ref, remove  } from 'firebase/database';
 
 const ShuttlesPage = () => {
 
@@ -36,7 +36,12 @@ const ShuttlesPage = () => {
   });
 
   const handleDelete = (id) => {
-    setShuttlesData(shuttles.filter(shuttle => shuttle.id !== id));
+    const shuttleRef = ref(database, `shuttles/${id}`);
+    
+    remove(shuttleRef)
+      .catch((error) => {
+        console.error("Error deleting shuttle:", error);
+      });
   };
 
   const handleEdit = (shuttle) => {
