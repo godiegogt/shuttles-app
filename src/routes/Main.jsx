@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../Layouts/Header/Header';
 import Card from '../Layouts/Card/Card';
 import { Box } from '@mui/material';
-import useShuttle from '../hooks/useShuttle'; // Ensure the path is correct
+import useShuttle from '../hooks/useShuttle'; 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
 function Main() {
@@ -11,8 +11,8 @@ function Main() {
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    // Initially load a certain number of shuttles
-    setVisibleShuttles(shuttles.slice(0, 10)); // Adjust the number as needed
+    
+    setVisibleShuttles(shuttles.slice(0, 10)); 
   }, [shuttles]);
 
   const fetchMoreData = () => {
@@ -21,8 +21,8 @@ function Main() {
       return;
     }
     
-    // Load more shuttles
-    setVisibleShuttles(shuttles.slice(0, visibleShuttles.length + 10)); // Load 10 more
+    
+    setVisibleShuttles(shuttles.slice(0, visibleShuttles.length + 10)); 
   };
 
   return (
