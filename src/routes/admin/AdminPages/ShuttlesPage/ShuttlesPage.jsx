@@ -7,7 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFilter, faCheck } from '@fortawesome/free-solid-svg-icons';
 import DashboardLayout from '../../../../Layouts/DashboardLayout/DashboardLayout';
 import useShuttle from '../../../../hooks/useShuttle';
-import { onValue, ref, remove  } from 'firebase/database';
+
+import { onValue, ref, update, remove } from 'firebase/database';
+
 
 const ShuttlesPage = () => {
 
@@ -50,10 +52,21 @@ const ShuttlesPage = () => {
   };
 
   const handleSaveEdit = (updatedShuttle) => {
-    setShuttlesData(shuttles.map(shuttle => shuttle.id === updatedShuttle.id ? updatedShuttle : shuttle));
-    setEditShuttle(null);
-    setEditModalOpen(false);
-  };
+    const shuttleRef = ref(database, `shuttles/${updatedShuttle.id}`);
+    update(shuttleRef, {
+        plateNumber: updatedShuttle.plateNumber,
+        currentState: updatedShuttle.currentState,
+        origin: updatedShuttle.origin,
+        destination: updatedShuttle.destination,
+    })
+    .then(() => {
+        setEditShuttle(null);
+        setEditModalOpen(false);
+    })
+    .catch((error) => {
+        console.error("Error updating shuttle: ", error);
+    });
+};
 
   const handleCreate = (newShuttle) => {
    // setShuttlesData([...shuttlesData, newShuttle]);
