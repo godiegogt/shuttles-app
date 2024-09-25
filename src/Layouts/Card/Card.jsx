@@ -39,7 +39,7 @@ const CustomCard = ({ placa, status, from, to, estimatedTime }) => {
   }, [status]);
 
   return (
-    <Card sx={{ maxWidth: 345, margin: '20px', backgroundColor: '#ffff' }}>
+    <Card sx={{ maxWidth: 310, margin: '10px', backgroundColor: '#ffff' }}>
       <CardActionArea>
         <CardMedia
           component="img"
@@ -48,15 +48,13 @@ const CustomCard = ({ placa, status, from, to, estimatedTime }) => {
           alt="bus"
         />
         <CardContent>
-          {/* Placa and Route Status */}
-          <Typography gutterBottom variant="body1" component="div" sx={{ display: 'flex', alignItems: 'center', gap: 15, justifyContent: 'space-between' }}>
+          <Typography gutterBottom variant="body1" component="div" sx={{ display: 'flex', alignItems: 'center', gap: 5, justifyContent: 'space-between' }}>
             <div>{`Placa: ${placa}`}</div>
             <div>{status}</div>
           </Typography>
           <hr />
 
-          {/* Route (From -> To) */}
-          <Typography gutterBottom variant="h6" component="div" sx={{ display: 'flex', alignItems: 'center', gap: 2, justifyContent: 'center' }}>
+          <Typography gutterBottom variant="h6" component="div" sx={{ display: 'flex', alignItems: 'center', gap: 1, justifyContent: 'center' }}>
             <span>{from}</span>
             <EastIcon />
             <DirectionsBusIcon />
@@ -65,10 +63,12 @@ const CustomCard = ({ placa, status, from, to, estimatedTime }) => {
           </Typography>
           <hr />
 
-          {/* Time Information */}
-          <Typography gutterBottom variant="body2" component="div" sx={{ display: 'flex', alignItems: 'center', gap: 4, justifyContent: 'center' }}>
+          
+          <Typography gutterBottom variant="body2" component="div" sx={{ display: 'flex', alignItems: 'center', gap: 1, justifyContent: 'center' }}>
             <p>{`Salió: ${startTime ? startTime.toLocaleTimeString() : 'N/A'}`}</p>
+            
             <p>{`Tiempo desde la salida: ${elapsedTime} mins`}</p>
+            
             <p>{`Llegará: ${arrivalTime}`}</p>
           </Typography>
         </CardContent>
