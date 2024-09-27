@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from 'firebase/auth';
 import { getDatabase } from "firebase/database";
 
 // TODO: Replace the following with your app's Firebase project configuration
@@ -16,7 +17,14 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
+//Auth
+const auth = getAuth(app);
 // Initialize Realtime Database and get a reference to the service
-export const database = getDatabase(app);
+const database = getDatabase(app);
+
+export {
+  auth,
+  database
+}
 
 

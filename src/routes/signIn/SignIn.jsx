@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+
+//MUI
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -10,19 +12,32 @@ import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Logo from '../signIn/src/Logo_withName.png';
+
+//Firebase Imports
+import {auth} from '../../firebase/firebase'
+import { signInWithEmailAndPassword } from 'firebase/auth';
+
+//My components
 import SignUpModal from '../../components/SignUp/SignUp';
 import './SignIn.css';
+import Logo from '../signIn/src/Logo_withName.png';
+import useAuth from '../../hooks/useAuth';
+
+
 
 const SignIn = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
-  const handleSubmit = (event) => {
+ const { signIn:SignInFirebase } = useAuth()
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log({ username, password });
+   await SignInFirebase(username,password)
+   
   };
 
   const handleOpenModal = () => setOpenModal(true);
@@ -85,7 +100,7 @@ const SignIn = () => {
               Forgot password?
             </Link>
           </Box>
-          <Button type="submit" fullWidth variant="contained" className="signInButton">
+          <Button  type="submit" fullWidth variant="contained" className="signInButton">
             Sign In
           </Button>
           <Box className="SignUpBox">

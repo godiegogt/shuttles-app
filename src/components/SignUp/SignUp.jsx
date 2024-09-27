@@ -9,6 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import './SignUp.css'; 
+import useAuth from '../../hooks/useAuth';
 
 const SignUpModal = ({ open, handleClose }) => {
   const [username, setUsername] = useState(''); 
@@ -16,9 +17,14 @@ const SignUpModal = ({ open, handleClose }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (event) => {
+ const { signUp }= useAuth();
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log({ username, email, password });
+
+    await signUp(email, password);
+
+    
   };
 
   return (
