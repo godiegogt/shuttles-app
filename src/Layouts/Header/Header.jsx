@@ -13,11 +13,12 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import logo from '../Header/img/Logo.png';
 import user from '../Header/img/user.jpg';
 import { Link } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 function ResponsiveAppBar() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+const {signOut} = useAuth()
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -29,7 +30,7 @@ function ResponsiveAppBar() {
   };
 
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    signOut()
   };
 
   return (
@@ -64,7 +65,7 @@ function ResponsiveAppBar() {
             <IconButton aria-label="filter" color="inherit">
               <FontAwesomeIcon icon={faFilter} />
             </IconButton>
-            {isLoggedIn ? (
+           
               <div>
                 <Avatar alt="User" src={user} sx={{ width: 40, height: 40, ml: 2, cursor: 'pointer' }} onClick={handleClick} />
                 <Menu
@@ -89,9 +90,7 @@ function ResponsiveAppBar() {
                   </MenuItem>
                 </Menu>
               </div>
-            ) : (
-              <Link to="/signin" style={{ color: 'white', textDecoration: 'none', marginLeft: '10px' }}>Sign In</Link>
-            )}
+            
           </Box>
         </Toolbar>
       </Container>

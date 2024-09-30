@@ -6,9 +6,11 @@ import Admin from './admin/Admin';
 import DashboardLayout from '../Layouts/DashboardLayout/DashboardLayout';
 import ShuttlesPage from './admin/AdminPages/ShuttlesPage/ShuttlesPage';
 import UsersPage from './admin/AdminPages/UsersPage/UsersPage';
+import { useSelector } from 'react-redux';
 
 const BaseRouting = () => {
-
+const isAuth = useSelector((state) => state.configurations.isAuth)
+console.log('IsAuth',isAuth)
 const router=createBrowserRouter(
     createRoutesFromElements(
       <Route>
@@ -25,7 +27,13 @@ const router=createBrowserRouter(
   );
 
   return (
-    <RouterProvider router={router} />
+    <>
+    {
+      isAuth
+      ? <RouterProvider router={router} />
+      : <SignIn/>
+    }
+    </>
   )
 }
 
