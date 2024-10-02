@@ -1,0 +1,70 @@
+.card {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  background-color: #fff;
+  width: 100%;
+  max-width: 800px; 
+}
+
+.info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.text-info {
+  display: flex;
+  flex-direction: row;
+  gap: 20px; 
+  flex: 1; 
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: #555;
+}
+
+.info-value {
+  margin-left: 5px; 
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+}
+
+.button-icon {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 50%; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s, color 0.3s; 
+}
+
+.button-icon:hover {
+  background-color: #f0f0f0;
+}
+
+.edit-icon:hover {
+  color: #007bff; 
+}
+
+.delete-icon:hover {
+  color: #dc3545; 
+}
+
+.icon {
+  font-size: 1.2rem;
+}
