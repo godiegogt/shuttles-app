@@ -18,7 +18,7 @@ import useAuth from '../../hooks/useAuth';
 function ResponsiveAppBar() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
-const {signOut} = useAuth()
+  const { signOut } = useAuth();
   const open = Boolean(anchorEl);
 
   const handleClick = (event) => {
@@ -30,7 +30,7 @@ const {signOut} = useAuth()
   };
 
   const handleLogout = () => {
-    signOut()
+    signOut();
   };
 
   return (
@@ -44,53 +44,79 @@ const {signOut} = useAuth()
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <img src={logo} alt="logo" style={{ height: '40px', marginRight: '10px' }} />
-            <Typography
-              variant="h6"
-              component="p"
-              sx={{
-                mr: 2,
-                fontFamily: 'monospace',
-                fontWeight: 700,
-                letterSpacing: '.3rem',
-                color: 'inherit',
-                textDecoration: 'none',
-              }}
-            >
-              BusliveGt
-            </Typography>
+            {/* Link envuelve el logo para redirigir a la página principal */}
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'inherit' }}>
+              <img src={logo} alt="logo" style={{ height: '40px', marginRight: '10px' }} />
+              <Typography
+                variant="h6"
+                component="p"
+                sx={{
+                  mr: 2,
+                  fontFamily: 'monospace',
+                  fontWeight: 700,
+                  letterSpacing: '.3rem',
+                  color: 'inherit',
+                  textDecoration: 'none',
+                }}
+              >
+                BusliveGt
+              </Typography>
+            </Link>
           </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <IconButton aria-label="filter" color="inherit">
               <FontAwesomeIcon icon={faFilter} />
             </IconButton>
-           
-              <div>
-                <Avatar alt="User" src={user} sx={{ width: 40, height: 40, ml: 2, cursor: 'pointer' }} onClick={handleClick} />
-                <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'left',
+
+            <div>
+              <Avatar
+                alt="User"
+                src={user}
+                sx={{ width: 40, height: 40, ml: 2, cursor: 'pointer' }}
+                onClick={handleClick}
+              />
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'left',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'left',
+                }}
+              >
+                <MenuItem
+                  onClick={handleClose}
+                  sx={{
+                    '&:focus': { backgroundColor: 'transparent' },
+                    '&:hover': { backgroundColor: '#f0f0f0' },
                   }}
                 >
-                  <MenuItem onClick={handleClose} sx={{ '&:focus': { backgroundColor: 'transparent',}, '&:hover': { backgroundColor: '#f0f0f0',} }}>
-                    <Link to="/dashboard/users" style={{ color: 'black', textDecoration: 'none', padding: '5px 10px' }}>Dashboard</Link>
-                  </MenuItem>
-                  <MenuItem onClick={() => { handleClose(); handleLogout(); }} sx={{ '&:focus': { backgroundColor: 'transparent',}, '&:hover': { backgroundColor: '#f0f0f0',} }}>
-                    <Link to="#" style={{ color: 'black', textDecoration: 'none', padding: '5px 10px' }}>Log Out</Link>
-                  </MenuItem>
-                </Menu>
-              </div>
-            
+                  <Link to="/dashboard/users" style={{ color: 'black', textDecoration: 'none', padding: '5px 10px' }}>
+                    Dashboard
+                  </Link>
+                </MenuItem>
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                    handleLogout();
+                  }}
+                  sx={{
+                    '&:focus': { backgroundColor: 'transparent' },
+                    '&:hover': { backgroundColor: '#f0f0f0' },
+                  }}
+                >
+                  <Link to="#" style={{ color: 'black', textDecoration: 'none', padding: '5px 10px' }}>
+                    Log Out
+                  </Link>
+                </MenuItem>
+              </Menu>
+            </div>
           </Box>
         </Toolbar>
       </Container>

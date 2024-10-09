@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import Header from '../Layouts/Header/Header';
 import Card from '../Layouts/Card/Card';
+
 import { Box, Typography, Skeleton } from '@mui/material';
+
 import useShuttle from '../hooks/useShuttle'; 
+
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { useNavigate } from 'react-router-dom'; 
 
 function Main() {
   const { shuttles } = useShuttle();
   const [visibleShuttles, setVisibleShuttles] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     if (shuttles.length > 0) {
@@ -28,6 +33,10 @@ function Main() {
     setVisibleShuttles(shuttles.slice(0, visibleShuttles.length + 10)); 
   };
 
+  const handleCardClick = (shuttleId) => {
+    navigate(`/shuttles-info/${shuttleId}`); 
+  };
+
   return (
     <div>
       <Header />
@@ -36,7 +45,7 @@ function Main() {
         next={fetchMoreData}
         hasMore={hasMore}
       > 
-      <div  >
+      <div>
         <Box 
           display="flex" 
           flexDirection="row" 
@@ -82,6 +91,7 @@ function Main() {
               visibleShuttles.map(shuttle => (
                 <Box 
                   key={shuttle.id} 
+                  onClick={() => handleCardClick(shuttle.id)} 
                   sx={{ 
                     flex: '0 0 calc(25% - 5px)', 
                     '@media (max-width: 600px)': {
@@ -89,7 +99,8 @@ function Main() {
                     },
                     '@media (max-width: 400px)': {
                       flex: '1 1 100%', 
-                    }
+                    },
+                    cursor: 'pointer' 
                   }}
                 >
                   <Card 
@@ -110,3 +121,4 @@ function Main() {
 }
 
 export default Main;
+
